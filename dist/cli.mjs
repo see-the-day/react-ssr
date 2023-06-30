@@ -2,7 +2,7 @@ import {
   CLIENT_ENTRY_PATH,
   SERVER_ENTRY_PATH,
   createVitePlugins
-} from "./chunk-XCEGVIBO.mjs";
+} from "./chunk-2AD4RM2V.mjs";
 import {
   __commonJS,
   resolveConfig
@@ -143,7 +143,6 @@ async function renderPage(render, root, clientBundle, routes) {
   const clientChunk = clientBundle.output.find(
     (chunk) => chunk.type === "chunk" && chunk.isEntry
   );
-  console.log("Rendering page in server side...");
   await Promise.all(
     routes.map(async (route) => {
       const routePath = route.path;

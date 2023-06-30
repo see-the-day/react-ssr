@@ -7,9 +7,10 @@ export function HomeLayout() {
   const { frontmatter } = usePageData();
   return (
     <div>
-      <span>{JSON.stringify(frontmatter)}</span>
-      <HomeHero hero={frontmatter.hero}></HomeHero>
-      <HomeFeature features={frontmatter.features}></HomeFeature>
+      {frontmatter?.hero && <HomeHero hero={frontmatter?.hero}></HomeHero>}
+      {frontmatter?.features && (
+        <HomeFeature features={frontmatter?.features}></HomeFeature>
+      )}
     </div>
   );
 }

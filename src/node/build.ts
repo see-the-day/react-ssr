@@ -52,7 +52,6 @@ export async function renderPage(
   const clientChunk = clientBundle.output.find(
     (chunk) => chunk.type === 'chunk' && chunk.isEntry
   );
-  console.log('Rendering page in server side...');
   await Promise.all(
     routes.map(async (route) => {
       const routePath = route.path;

@@ -543,7 +543,6 @@ function pluginMdxHmr() {
           id + "?.jsx",
           opts
         );
-        console.log(result);
         const selfAcceptCode = "import.meta.hot.accept();";
         if (typeof result === "object" && !result.code?.includes(selfAcceptCode)) {
           result.code += selfAcceptCode;
@@ -561,7 +560,6 @@ function createPluginMdx() {
 
 // src/node/test-plugin.ts
 function testPlugin() {
-  console.log(122313);
   return {
     name: "213123",
     apply: "serve",

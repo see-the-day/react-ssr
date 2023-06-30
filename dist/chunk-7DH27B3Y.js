@@ -539,7 +539,6 @@ function pluginMdxHmr() {
           id + "?.jsx",
           opts
         )]);
-        console.log(result);
         const selfAcceptCode = "import.meta.hot.accept();";
         if (typeof result === "object" && !_optionalChain([result, 'access', _27 => _27.code, 'optionalAccess', _28 => _28.includes, 'call', _29 => _29(selfAcceptCode)])) {
           result.code += selfAcceptCode;
@@ -557,7 +556,6 @@ function createPluginMdx() {
 
 // src/node/test-plugin.ts
 function testPlugin() {
-  console.log(122313);
   return {
     name: "213123",
     apply: "serve",

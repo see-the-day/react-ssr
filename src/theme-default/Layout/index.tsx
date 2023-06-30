@@ -4,6 +4,7 @@ import 'uno.css';
 import '../styles/base.css';
 import '../styles/vars.css';
 import { HomeLayout } from './HomeLayout';
+import { DocLayout } from './DocLayout';
 export function Layout() {
   const pageData = usePageData();
   const { pageType } = pageData;
@@ -16,15 +17,15 @@ export function Layout() {
         </HomeLayout>
       );
     } else if (pageType === 'doc') {
-      return <HomeLayout>222</HomeLayout>;
+      return <DocLayout></DocLayout>;
     } else {
       return <HomeLayout>404</HomeLayout>;
     }
   };
   return (
     <div>
-      {getContent()}
       <Nav></Nav>
+      {getContent()}
     </div>
   );
 }

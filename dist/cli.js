@@ -2,7 +2,7 @@
 
 
 
-var _chunkSNWRATW6js = require('./chunk-SNWRATW6.js');
+var _chunk7DH27B3Yjs = require('./chunk-7DH27B3Y.js');
 
 
 
@@ -110,7 +110,7 @@ async function bundle(root = process.cwd(), config) {
   const resolveViteConfig = async (isServer) => ({
     mode: "production",
     root,
-    plugins: await _chunkSNWRATW6js.createVitePlugins.call(void 0, config, void 0, isServer),
+    plugins: await _chunk7DH27B3Yjs.createVitePlugins.call(void 0, config, void 0, isServer),
     ssr: {
       // 注意加上这个配置，防止 cjs 产物中 require ESM 的产物，因为 react-router-dom 的产物为 ESM 格式
       noExternal: ["react-router-dom"]
@@ -120,7 +120,7 @@ async function bundle(root = process.cwd(), config) {
       ssr: isServer,
       outDir: _path2.default.join(root, isServer ? ".temp" : "build"),
       rollupOptions: {
-        input: isServer ? _chunkSNWRATW6js.SERVER_ENTRY_PATH : _chunkSNWRATW6js.CLIENT_ENTRY_PATH,
+        input: isServer ? _chunk7DH27B3Yjs.SERVER_ENTRY_PATH : _chunk7DH27B3Yjs.CLIENT_ENTRY_PATH,
         output: {
           format: isServer ? "cjs" : "esm"
         }
@@ -143,7 +143,6 @@ async function renderPage(render, root, clientBundle, routes) {
   const clientChunk = clientBundle.output.find(
     (chunk) => chunk.type === "chunk" && chunk.isEntry
   );
-  console.log("Rendering page in server side...");
   await Promise.all(
     routes.map(async (route) => {
       const routePath = route.path;

@@ -20,7 +20,6 @@ export function pluginMdxHmr(): Plugin {
           id + '?.jsx',
           opts
         );
-        console.log(result);
         const selfAcceptCode = 'import.meta.hot.accept();';
         if (
           typeof result === 'object' &&
