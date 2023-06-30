@@ -6,7 +6,6 @@ export function pluginHtml(): Plugin {
     name: 'island:index-html',
     apply: 'serve',
     transformIndexHtml(html) {
-      console.log(111);
       return {
         html,
         tags: [
@@ -23,13 +22,11 @@ export function pluginHtml(): Plugin {
         server.middlewares.use(async (req, res, next) => {
           let html = await readFile(DEFAULT_TEMPLATE_PATH, 'utf-8');
           try {
-            console.log(222);
             html = await server.transformIndexHtml(
               req.url,
               html,
               req.originalUrl
             );
-            console.log(html);
             res.statusCode = 200;
             res.setHeader('Content-Type', 'text/html');
             res.end(html);

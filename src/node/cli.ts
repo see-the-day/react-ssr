@@ -8,7 +8,6 @@ const version = require('../../package.json').version;
 const cli = cac('island').version(version).help();
 
 cli.command('dev [root]', 'start dev server').action(async (root: string) => {
-  console.log('dev', root);
   const createServer = async () => {
     const { createDevServer } = await import('./dev.js');
     const server = await createDevServer(root, async () => {
@@ -24,7 +23,6 @@ cli.command('dev [root]', 'start dev server').action(async (root: string) => {
 cli
   .command('build [root]', 'build for production')
   .action(async (root: string) => {
-    console.log('build', root, 111);
     try {
       // root = Promise.resolve(root);
       root = resolve(root);

@@ -3,7 +3,7 @@ import { Plugin } from 'vite';
 import { SiteConfig } from 'shared/types/index';
 import { PACKAGE_ROOT } from '../../node/constants';
 import { join } from 'path';
-
+import sirv from 'sirv';
 const SITE_DATA_ID = 'island:site-data';
 
 export function pluginConfig(
@@ -15,6 +15,11 @@ export function pluginConfig(
     resolveId(id) {
       if (id === SITE_DATA_ID) {
         return '\0' + SITE_DATA_ID;
+      }
+    },
+    css: {
+      modules: {
+        localsConvention: 'camelCaseOnly'
       }
     },
     load(id) {
@@ -44,6 +49,10 @@ export function pluginConfig(
         await restartServer();
         // 重点: 重启 Dev Server
       }
+    },
+    configureServer(server) {
+      const publicDir = join(config.root, 'public');
+      server.middlewares.use(sirv(publicDir));
     }
   };
 }

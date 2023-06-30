@@ -1,7 +1,6 @@
 import fastGlob from 'fast-glob';
 import { normalizePath } from 'vite';
 import path from 'path';
-
 interface RouteMeta {
   routePath: string;
   absolutePath: string;
@@ -21,7 +20,6 @@ export class RouteService {
         ignore: ['**/node_modules/**', '**/build/**', 'config.ts']
       })
       .sort();
-    console.log(files);
     files.forEach((file: string) => {
       const fileRelativePath = normalizePath(
         path.relative(this.#scanDir, file)
@@ -32,7 +30,6 @@ export class RouteService {
         absolutePath: file
       });
     });
-    console.log(this.#routeData);
   }
   getRouteMeta(): RouteMeta[] {
     return this.#routeData;
@@ -40,5 +37,29 @@ export class RouteService {
   normalizeRoutePath(rawPath: string): string {
     const routePath = rawPath.replace(/\.(.*)?$/, '').replace(/index$/, '');
     return routePath.startsWith('/') ? routePath : `/${routePath}`;
+  }
+  generateRoutesCode(ssr = false) {
+    return `
+      import React from 'react';
+      ${ssr ? '' : 'import loadable from "@loadable/component";'}
+      ${this.#routeData
+        .map((route, index) => {
+          return ssr
+            ? `import Route${index} from "${route.absolutePath}"`
+            : `const Route${index} = loadable(() => import('${route.absolutePath}'));`;
+        })
+        .join('\n')}
+      export const routes = [
+        ${this.#routeData
+          .map((route, index) => {
+            return `{ 
+              path: '${route.routePath}', 
+              element: React.createElement(Route${index}),
+              preload: () => import('${route.absolutePath}')
+            }`;
+          })
+          .join(',\n')}
+      ];
+    `;
   }
 }

@@ -33,6 +33,7 @@ interface UserConfig {
     description?: string;
     themeConfig?: ThemeConfig;
     vite?: UserConfig$1;
+    sidebar?: Record<string, any>;
 }
 
 declare function defineConfig(config: UserConfig): UserConfig;

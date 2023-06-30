@@ -1,10 +1,9 @@
 import { RouteService } from './RouteService';
 import { describe, expect, test } from 'vitest';
-import path from 'path';
+import * as path from 'path';
 
 describe('RouteService', async () => {
   const testDir = path.join(__dirname, 'fixtures');
-  console.log(testDir);
   const routeService = new RouteService(testDir);
   await routeService.init();
 
@@ -24,6 +23,22 @@ describe('RouteService', async () => {
           "routePath": "/guide/b",
         },
       ]
+    `);
+  });
+
+  test('generate routes code', async () => {
+    expect(routeService.generateRoutesCode().replaceAll(testDir, 'TEST_DIR'))
+      .toMatchInlineSnapshot(`
+      "
+      import React from 'react';
+      import loadable from '@loadable/component';
+      const Route0 = loadable(() => import('TEST_DIR/a.mdx'));
+      const Route1 = loadable(() => import('TEST_DIR/guide/b.mdx'));
+      export const routes = [
+        { path: '/a', element: React.createElement(Route0) },
+      { path: '/guide/b', element: React.createElement(Route1) }
+      ];
+      "
     `);
   });
 });
